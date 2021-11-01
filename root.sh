@@ -1,16 +1,42 @@
 #!/bin/bash
-wget -qO- -O /etc/ssh/sshd_config https://raw.githubusercontent.com/LordSVX/Root-VPS/main/sshd_config;
-systemctl restart sshd;
-clear;
-echo -e "Masukkan Password:";
-read -e pwe;
-usermod -p `perl -e "print crypt("$pwe","Q4")"` root;
-clear;
+
+
+sed -i "/PasswordAuthentication no/d" /etc/ssh/sshd_config
+echo "" | sudo tee -a /etc/ssh/sshd_config
+echo "" | sudo tee -a /etc/ssh/sshd_config
+echo "PermitRootLogin yes" | sudo tee -a /etc/ssh/sshd_config
+echo "PasswordAuthentication yes" | sudo tee -a /etc/ssh/sshd_config
+systemctl restart sshd
+ip=$(curl ifconfig.me/ip)
+clear
+sleep 1
+printf "
+ __  __ ____   ___  
+|  \/  |  _ \ / _ \ 
+| |\/| | |_) | | | |
+| |  | |  _ <| |_| |
+|_|  |_|_| \_\\___/ 
+"                                
+echo
+echo "Cara Mudah Untuk Root Dan Login Vps"
+echo "============================================"
+user=root
+echo "Masukkan Password: " 
+read -e pw
+pwe=$(mkpasswd $pw)
+
+clear
+usermod --password $pwe $user
+clear
+
+echo ""
 printf "Please Save This VPS Account Information
 ============================================
-Ip address = $(curl -Ls icanhazip.com)
-Username   = root
-Password   = $pwe
-============================================";
-echo "";
-exit;
+Ip address = $ip
+Username   = $user
+Password   = $pw
+============================================"
+sleep 1
+echo ""
+echo 
+exit
