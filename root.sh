@@ -15,7 +15,7 @@ printf "
 |  \/  |  _ \ / _ \ 
 | |\/| | |_) | | | |
 | |  | |  _ <| |_| |
-|_|  |_|_| \_\\___/ 
+|_|  |_|_| \_\\_____/ 
 "                                
 echo
 echo "Cara Mudah Untuk Root Dan Login Vps"
